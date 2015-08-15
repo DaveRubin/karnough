@@ -29,8 +29,8 @@ angular.module('carnotTableApp')
             };
 
             this.changedResult = function (){
-                if (that.result == "") that.result = 0;
-                else if (that.result >1) that.result = 1;
+                if (that.result == ""  || that.result == "0") that.result = 0;
+                else that.result = 1;
             };
 
 
