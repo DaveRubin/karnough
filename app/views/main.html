@@ -1,0 +1,59 @@
+
+
+    <input ng-model="vars" type="text">
+      <br>
+    <div id="truth-table" class="table-container col-xs-12 col-sm-6">
+        <h2>Truth table </h2>
+        <table class="table table-condensed table-bordered">
+            <thead>
+                <tr>
+                    <th     class="clickable"
+                            ng-class="{selected:orderVar==var} "
+                            ng-repeat="var in varsArr"
+                            ng-click="changeSort(var)">
+                        {{var}}
+                    </th>
+                    <th > f </th>
+                </tr>
+            </thead>
+
+            <tbody>
+            <tr ng-repeat="combination in combinations | orderBy:'getVal()'"
+                    ng-class="{highlight:($index/4 - ($index/4 % 1))%2 == 1}">
+                <td ng-repeat="var in combination.vars">
+                    {{var? 1:0 }}
+                </td>
+                <td >
+                    <input  type="text" ng-model="combination.result" ng-change="combination.changedResult()">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+    <div id="carnot-table" class="table-container col-xs-12 col-sm-6">
+        <h2>Carnot table</h2>
+        <table ng-controller="CarnotCtrl" class="table table-bordered">
+            <thead>
+            <tr>
+                <th>
+                    +
+                </th>
+                <th ng-repeat="col in columns">
+                    {{col|parseLogic}}
+                </th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr ng-repeat="row in rows">
+                <td>
+                    {{row|parseLogic}}
+                </td>
+                <th ng-repeat="col in columns">
+                    {{getCombnation([col,row]).result}}
+                </th>
+            </tr>
+            </tbody>
+        </table>
+    </div>
